@@ -28,6 +28,16 @@ add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
         ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
 )
 
+add_custom_target(flash
+    COMMAND STM32_Programmer_CLI
+        -c port=SWD
+        -w $<TARGET_FILE:${CMAKE_PROJECT_NAME}>
+        -v
+        -rst
+    DEPENDS ${CMAKE_PROJECT_NAME}
+    USES_TERMINAL
+)
+
 target_link_options(${CMAKE_PROJECT_NAME} PRIVATE
     -T${CMAKE_SOURCE_DIR}/STM32H743XG_FLASH.ld
     -Wl,-Map=${CMAKE_PROJECT_NAME}.map
