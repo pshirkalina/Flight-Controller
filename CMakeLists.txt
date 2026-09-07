@@ -14,6 +14,20 @@ add_executable(${CMAKE_PROJECT_NAME})
 
 add_subdirectory(cmake/stm32cubemx)
 
+set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
+    SUFFIX ".elf"
+)
+
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMAND arm-none-eabi-objcopy -O ihex
+        $<TARGET_FILE:${CMAKE_PROJECT_NAME}>
+        ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.hex
+
+    COMMAND arm-none-eabi-objcopy -O binary
+        $<TARGET_FILE:${CMAKE_PROJECT_NAME}>
+        ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.bin
+)
+
 target_link_options(${CMAKE_PROJECT_NAME} PRIVATE
     -T${CMAKE_SOURCE_DIR}/STM32H743XG_FLASH.ld
     -Wl,-Map=${CMAKE_PROJECT_NAME}.map
