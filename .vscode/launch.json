@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug FlightController",
+      "cwd": "${workspaceFolder}",
+      "executable": "${workspaceFolder}/build/debug/FlightController.elf",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "stlink",
+      "device": "STM32H743VG",
+      "interface": "swd",
+      "runToEntryPoint": "main"
+    }
+  ]
+}
