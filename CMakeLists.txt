@@ -14,6 +14,14 @@ add_executable(${CMAKE_PROJECT_NAME})
 
 add_subdirectory(cmake/stm32cubemx)
 
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE
+    BSP/Src/bsp_spi.c
+)
+
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+    BSP/Inc
+)
+
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
     SUFFIX ".elf"
 )
